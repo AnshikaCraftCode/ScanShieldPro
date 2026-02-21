@@ -59,8 +59,9 @@ Model Accuracy: 99.2%
 
 🖼️ Project Screenshots
 
-
-
+<img width="1742" height="897" alt="image" src="https://github.com/user-attachments/assets/5ab45f97-0e72-4cfc-b20e-3ace1aba9129" />
+<img width="1646" height="890" alt="image" src="https://github.com/user-attachments/assets/4de1c15b-12d4-4c3d-8dfe-00aad3b26dee" />
+<img width="1742" height="875" alt="image" src="https://github.com/user-attachments/assets/ee601994-6128-4fd4-b4fa-c2002f0c9aea" />
 
 ⚙️ How It Works
 
