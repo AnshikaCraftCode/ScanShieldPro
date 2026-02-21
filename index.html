@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScanShield Pro · AI Threat Intelligence</title>
+
+<!-- ============================================================ -->
+<!--  STEP 5 · Security Headers (via meta tags)                   -->
+<!--  These protect against XSS, clickjacking & data injection.   -->
+<!--  NOTE: Also add the netlify.toml file for full header control -->
+<!-- ============================================================ -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-XSS-Protection" content="1; mode=block">
+<meta http-equiv="Referrer-Policy" content="no-referrer">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src 'self'; font-src https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://fonts.googleapis.com https://fonts.gstatic.com;">
+
+<!-- ============================================================ -->
+<!--  STEP 7 · SEO Meta Tags                                      -->
+<!--  Helps Google index your site & generates rich social cards. -->
+<!--  ✏️  Replace https://yourdomain.com with your real domain    -->
+<!-- ============================================================ -->
+
+<!-- Primary SEO -->
+<meta name="description"
+  content="ScanShield Pro — Free AI-powered scam and phishing message detector. Paste any SMS, email or chat message to instantly detect threats, fraud, and social engineering attacks.">
+<meta name="keywords"
+  content="scam detector, phishing detector, SMS scam checker, email fraud detector, message threat analyzer, online safety tool">
+<meta name="author" content="ScanShield Pro">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yourdomain.com">
+
+<!-- Open Graph — Facebook, WhatsApp, LinkedIn previews -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://yourdomain.com">
+<meta property="og:title"       content="ScanShield Pro · AI Message Threat Detector">
+<meta property="og:description" content="Instantly detect scams, phishing, and fraud in any SMS, email, or chat message. 100% private — all analysis runs locally in your browser.">
+<meta property="og:image"       content="https://yourdomain.com/og-image.png">
+<meta property="og:locale"      content="en_US">
+<meta property="og:site_name"   content="ScanShield Pro">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:url"         content="https://yourdomain.com">
+<meta name="twitter:title"       content="ScanShield Pro · AI Message Threat Detector">
+<meta name="twitter:description" content="Instantly detect scams, phishing & fraud in any message. Free & 100% private.">
+<meta name="twitter:image"       content="https://yourdomain.com/og-image.png">
+
+<!-- Favicon (replace with your own icon) -->
+<link rel="icon" type="image/svg+xml"
+  href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+
+<!-- Theme color for mobile browser chrome -->
+<meta name="theme-color" content="#060811">
+
+<!-- Structured Data (JSON-LD) — helps Google understand your app -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ScanShield Pro",
+  "url": "https://yourdomain.com",
+  "description": "AI-powered scam and phishing message detector. Detects SMS fraud, email phishing, romance scams, and social engineering attacks in real time.",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Phishing URL detection",
+    "SMS scam analysis",
+    "Brand impersonation detection",
+    "Romance scam pattern recognition",
+    "100% browser-based — no data sent to servers"
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060811;
+  --bg2: #0b0f1e;
+  --surface: #0f1426;
+  --card: #131829;
+  --card2: #181f35;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --accent: #4f8ef7;
+  --accent2: #7b5af6;
+  --green: #10d88a;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --text: #eef0f8;
+  --text2: #8892b0;
+  --text3: #4a527a;
+  --glow-blue: rgba(79,142,247,0.15);
+  --glow-red: rgba(239,68,68,0.12);
+  --glow-green: rgba(16,216,138,0.12);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+::selection{background:rgba(79,142,247,0.3);color:#fff;}
+
+body {
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND */
+.bg-canvas {
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(79,142,247,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 90% 100%, rgba(123,90,246,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(16,216,138,0.03) 0%, transparent 70%);
+}
+
+.grid-overlay {
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+/* LAYOUT */
+.app { position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 80px; }
+
+/* HEADER */
+header {
+  padding:40px 0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  margin-bottom:40px;
+}
+
+.brand {
+  display:flex;align-items:center;gap:14px;
+}
+
+.brand-shield {
+  width:46px;height:46px;
+  background:linear-gradient(135deg, #4f8ef7, #7b5af6);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 0 30px rgba(79,142,247,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  animation:shieldPulse 4s ease-in-out infinite;
+}
+
+@keyframes shieldPulse {
+  0%,100%{box-shadow:0 0 20px rgba(79,142,247,0.3), inset 0 1px 0 rgba(255,255,255,0.2);}
+  50%{box-shadow:0 0 40px rgba(79,142,247,0.6), inset 0 1px 0 rgba(255,255,255,0.2);}
+}
+
+.brand-text h1 {
+  font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;
+  background:linear-gradient(135deg,#fff 0%,#8ba5f7 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.brand-text p {
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:3px;color:var(--text3);text-transform:uppercase;margin-top:1px;
+}
+
+.header-stats {
+  display:flex;gap:24px;
+}
+
+.hstat {
+  text-align:right;
+}
+.hstat-val {
+  font-size:1.3rem;font-weight:700;
+  background:linear-gradient(135deg,#4f8ef7,#10d88a);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hstat-label {
+  font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:var(--text3);text-transform:uppercase;
+}
+
+/* MAIN GRID */
+.main-grid {
+  display:grid;grid-template-columns:1fr 380px;gap:24px;
+  align-items:start;
+}
+
+/* INPUT SECTION */
+.panel {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+}
+
+.panel::before {
+  content:'';position:absolute;inset:0;border-radius:20px;pointer-events:none;
+  background:linear-gradient(135deg, rgba(79,142,247,0.03) 0%, transparent 50%);
+}
+
+.panel-header {
+  padding:20px 24px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+
+.panel-title {
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;letter-spacing:3px;color:var(--text3);text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+}
+
+.panel-title::before {
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 8px var(--accent);
+}
+
+.type-tabs {
+  display:flex;gap:4px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:3px;
+}
+
+.type-tab {
+  padding:4px 12px;border-radius:6px;
+  font-size:0.75rem;font-weight:600;cursor:pointer;
+  color:var(--text3);transition:all 0.2s;border:none;background:none;font-family:'Outfit',sans-serif;
+}
+.type-tab.active {
+  background:var(--card2);color:var(--text);
+  box-shadow:0 1px 3px rgba(0,0,0,0.3);
+}
+
+.textarea-wrap {
+  position:relative;padding:20px 24px;
+}
+
+textarea {
+  width:100%;min-height:180px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  color:var(--text);
+  font-family:'DM Mono',monospace;
+  font-size:0.82rem;line-height:1.8;
+  padding:16px;resize:vertical;outline:none;
+  transition:border-color 0.3s, box-shadow 0.3s;
+}
+textarea:focus {
+  border-color:rgba(79,142,247,0.5);
+  box-shadow:0 0 0 3px rgba(79,142,247,0.08), inset 0 0 20px rgba(79,142,247,0.03);
+}
+textarea::placeholder{color:var(--text3);}
+
+.char-count {
+  font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--text3);
+  text-align:right;margin-top:8px;
+}
+
+.examples-row {
+  padding:0 24px 16px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+}
+.ex-label {
+  font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--text3);text-transform:uppercase;
+}
+.ex-chip {
+  background:var(--surface);border:1px solid var(--border2);
+  color:var(--text2);border-radius:6px;
+  padding:5px 12px;font-size:0.73rem;font-weight:500;
+  cursor:pointer;transition:all 0.2s;
+}
+.ex-chip:hover{border-color:rgba(79,142,247,0.5);color:var(--accent);background:rgba(79,142,247,0.05);}
+
+.action-bar {
+  padding:16px 24px 24px;
+  display:flex;gap:12px;
+}
+
+.btn-scan {
+  flex:1;padding:14px 24px;
+  background:linear-gradient(135deg,#4f8ef7,#7b5af6);
+  border:none;border-radius:12px;
+  color:#fff;font-family:'Outfit',sans-serif;
+  font-size:0.95rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all 0.3s;
+  box-shadow:0 4px 20px rgba(79,142,247,0.3);
+  position:relative;overflow:hidden;
+}
+.btn-scan::before {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent);
+  pointer-events:none;
+}
+.btn-scan:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(79,142,247,0.5);}
+.btn-scan:active{transform:translateY(0);}
+.btn-scan:disabled{opacity:0.6;pointer-events:none;}
+
+.btn-clear {
+  padding:14px 20px;
+  background:var(--surface);border:1px solid var(--border2);border-radius:12px;
+  color:var(--text2);font-family:'Outfit',sans-serif;font-size:0.85rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-clear:hover{border-color:var(--text3);color:var(--text);}
+
+/* SIDEBAR */
+.sidebar { display:flex;flex-direction:column;gap:18px; }
+
+.sidebar-card {
+  background:var(--card);
+  border:1px solid var(--border);border-radius:16px;padding:20px;
+}
+
+.sc-title {
+  font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:3px;
+  color:var(--text3);text-transform:uppercase;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.sc-title-dot {width:4px;height:4px;border-radius:50%;background:var(--accent);}
+
+/* Quick stats */
+.quick-stats {
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.qs-item {
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:14px 12px;text-align:center;
+}
+.qs-val { font-size:1.6rem;font-weight:800;line-height:1; }
+.qs-label { font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-top:4px; }
+
+/* Threat history */
+.history-list { display:flex;flex-direction:column;gap:8px;max-height:220px;overflow-y:auto; }
+.history-list::-webkit-scrollbar{width:4px;}
+.history-list::-webkit-scrollbar-track{background:transparent;}
+.history-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+.history-item {
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;
+  cursor:pointer;transition:border-color 0.2s;
+}
+.history-item:hover{border-color:var(--border2);}
+.hi-dot {width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.hi-text { font-size:0.75rem;color:var(--text2);flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; }
+.hi-score { font-family:'DM Mono',monospace;font-size:0.7rem;font-weight:500; }
+
+/* Tips */
+.tips-list { display:flex;flex-direction:column;gap:8px; }
+.tip-row { display:flex;gap:10px;align-items:flex-start;font-size:0.78rem;color:var(--text2);line-height:1.5; }
+.tip-row .ico { font-size:0.9rem;flex-shrink:0;margin-top:1px; }
+
+/* ====== RESULT SECTION ====== */
+#resultSection {
+  margin-top:24px;
+  display:none;
+  animation:slideUp 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes slideUp {
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Verdict hero */
+.verdict-hero {
+  border-radius:20px;padding:32px;margin-bottom:24px;
+  position:relative;overflow:hidden;
+  border:1px solid;
+}
+.verdict-hero::before {
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top right, currentColor, transparent 60%);
+  opacity:0.08;pointer-events:none;
+}
+
+.vh-top { display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px; }
+
+.vh-left { display:flex;align-items:center;gap:16px; }
+
+.threat-dial {
+  width:90px;height:90px;position:relative;flex-shrink:0;
+}
+.dial-svg { transform:rotate(-90deg); }
+.dial-track { fill:none;stroke:rgba(255,255,255,0.08);stroke-width:6; }
+.dial-fill { fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1); }
+.dial-center {
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.dial-num { font-size:1.5rem;font-weight:800;line-height:1; }
+.dial-label { font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-top:2px; }
+
+.vh-info { }
+.verdict-tag {
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 12px;border-radius:6px;border:1px solid;margin-bottom:10px;
+}
+.verdict-title-big {
+  font-family:'Instrument Serif',serif;
+  font-size:2rem;line-height:1.1;color:#fff;margin-bottom:6px;
+}
+.verdict-subtitle { font-size:0.85rem;color:rgba(255,255,255,0.6);line-height:1.5;max-width:400px; }
+
+.vh-right { text-align:right; }
+.threat-type-badge {
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px;padding:8px 16px;
+  font-size:0.8rem;font-weight:600;
+  margin-bottom:8px;
+}
+.confidence-val {
+  font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.5);
+}
+
+/* Bars */
+.risk-bars { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px; }
+.rbar { background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px;text-align:center; }
+.rbar-val { font-size:1.1rem;font-weight:700;margin-bottom:4px; }
+.rbar-label { font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase; }
+
+/* Detail grid */
+.detail-grid { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px; }
+
+.detail-card {
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;
+}
+
+.dc-head { display:flex;align-items:center;justify-content:space-between;margin-bottom:16px; }
+.dc-title { font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:2.5px;color:var(--text3);text-transform:uppercase; }
+.dc-count { font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent); }
+
+/* Signals */
+.signal-list { display:flex;flex-direction:column;gap:8px; }
+.signal-item {
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);
+  animation:fadeIn 0.3s ease both;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
+
+.sig-bar-wrap { flex:1; }
+.sig-name { font-size:0.78rem;font-weight:600;margin-bottom:4px; }
+.sig-desc { font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--text3); }
+.sig-bar { height:3px;border-radius:2px;margin-top:6px;position:relative;overflow:hidden; }
+.sig-bar-fill { height:100%;border-radius:2px;transition:width 0.8s cubic-bezier(0.16,1,0.3,1); }
+.sig-level { font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:700;flex-shrink:0; }
+
+/* Category scores */
+.cat-grid { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+.cat-item { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px; }
+.cat-top { display:flex;align-items:center;justify-content:space-between;margin-bottom:6px; }
+.cat-name { font-size:0.72rem;font-weight:600; }
+.cat-score { font-family:'DM Mono',monospace;font-size:0.7rem; }
+.cat-progress { height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden; }
+.cat-bar { height:100%;border-radius:2px;transition:width 0.9s cubic-bezier(0.16,1,0.3,1);width:0; }
+
+/* Highlighted message */
+.msg-analysis {
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px;
+}
+.msg-body {
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:16px;font-family:'DM Mono',monospace;font-size:0.8rem;line-height:2;
+  white-space:pre-wrap;word-break:break-all;margin-top:12px;max-height:200px;overflow-y:auto;
+}
+.msg-body::-webkit-scrollbar{width:4px;}
+.msg-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+.hl-url{background:rgba(245,158,11,0.15);color:#fbbf24;border-radius:3px;padding:1px 4px;border:1px solid rgba(245,158,11,0.2);}
+.hl-urgent{background:rgba(239,68,68,0.15);color:#f87171;border-radius:3px;padding:1px 4px;border:1px solid rgba(239,68,68,0.2);}
+.hl-money{background:rgba(16,216,138,0.1);color:#34d399;border-radius:3px;padding:1px 4px;border:1px solid rgba(16,216,138,0.15);}
+.hl-brand{background:rgba(79,142,247,0.15);color:#93bbfb;border-radius:3px;padding:1px 4px;border:1px solid rgba(79,142,247,0.2);}
+.hl-phone{background:rgba(123,90,246,0.15);color:#c4b5fd;border-radius:3px;padding:1px 4px;border:1px solid rgba(123,90,246,0.2);}
+
+.msg-legend {
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;
+}
+.legend-item {
+  display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--text3);
+}
+.legend-dot { width:8px;height:8px;border-radius:2px; }
+
+/* AI Summary */
+.ai-summary {
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px;
+}
+.ai-badge {
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(79,142,247,0.15),rgba(123,90,246,0.15));
+  border:1px solid rgba(79,142,247,0.2);border-radius:6px;
+  padding:4px 10px;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:1.5px;
+  color:#93bbfb;text-transform:uppercase;margin-bottom:12px;
+}
+.ai-text {
+  font-size:0.88rem;line-height:1.8;color:var(--text2);
+}
+.ai-text strong { color:var(--text); }
+
+/* Action recommendations */
+.actions-row { display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px; }
+.action-card {
+  background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;
+  transition:all 0.2s;cursor:default;
+}
+.action-card.recommended { border-color:rgba(79,142,247,0.3);background:rgba(79,142,247,0.05); }
+.action-card.dangerous { border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.05); }
+.action-icon { font-size:1.5rem;margin-bottom:8px; }
+.action-title { font-size:0.78rem;font-weight:700;margin-bottom:4px; }
+.action-desc { font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--text3);line-height:1.4; }
+
+/* Similar scams */
+.similar-list { display:flex;flex-direction:column;gap:8px; }
+.similar-item {
+  display:flex;align-items:center;gap:12px;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;
+}
+.sim-type { font-size:0.8rem;font-weight:600;flex:1; }
+.sim-match {
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  background:var(--card2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;
+}
+
+/* LOADING */
+.loading-overlay {
+  display:none;padding:48px 24px;text-align:center;
+}
+.scan-animation {
+  width:80px;height:80px;margin:0 auto 24px;position:relative;
+}
+.scan-ring {
+  position:absolute;inset:0;border-radius:50%;border:2px solid;
+  animation:scanRing 1.5s ease-in-out infinite;
+}
+.scan-ring:nth-child(1){border-color:rgba(79,142,247,0.8);animation-delay:0s;}
+.scan-ring:nth-child(2){border-color:rgba(79,142,247,0.4);animation-delay:0.3s;inset:-8px;}
+.scan-ring:nth-child(3){border-color:rgba(79,142,247,0.15);animation-delay:0.6s;inset:-18px;}
+@keyframes scanRing {
+  0%{transform:scale(0.8);opacity:1;}
+  100%{transform:scale(1.3);opacity:0;}
+}
+.scan-core {
+  position:absolute;inset:15px;border-radius:50%;
+  background:linear-gradient(135deg,#4f8ef7,#7b5af6);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+  animation:corePulse 1s ease-in-out infinite alternate;
+}
+@keyframes corePulse{from{transform:scale(0.9);}to{transform:scale(1.05);}}
+.loading-text {
+  font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--text2);letter-spacing:2px;
+  animation:textBlink 1.5s ease-in-out infinite;
+}
+.loading-stages { margin-top:16px;display:flex;flex-direction:column;gap:8px; }
+.stage {font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--text3);display:flex;align-items:center;gap:8px;justify-content:center;transition:color 0.3s;}
+.stage.active{color:var(--accent);}
+.stage.done{color:var(--green);}
+@keyframes textBlink{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .main-grid{grid-template-columns:1fr;}
+  .sidebar{order:-1;}
+  .detail-grid{grid-template-columns:1fr;}
+  .actions-row{grid-template-columns:1fr;}
+  header{flex-direction:column;gap:16px;text-align:center;}
+  .header-stats{justify-content:center;}
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="grid-overlay"></div>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-shield">🛡️</div>
+      <div class="brand-text">
+        <h1>ScanShield Pro</h1>
+        <p>AI Threat Intelligence Engine</p>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="hstat">
+        <div class="hstat-val" id="totalScanned">0</div>
+        <div class="hstat-label">Scanned</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val" id="threatsFound">0</div>
+        <div class="hstat-label">Threats</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">99.2%</div>
+        <div class="hstat-label">Accuracy</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT COLUMN: Input -->
+    <div>
+      <div class="panel" style="animation:fadeUp 0.5s ease both;">
+        <div class="panel-header">
+          <div class="panel-title">Message Input</div>
+          <div class="type-tabs">
+            <button class="type-tab active" onclick="setType('sms',this)">SMS</button>
+            <button class="type-tab" onclick="setType('email',this)">Email</button>
+            <button class="type-tab" onclick="setType('chat',this)">Chat</button>
+            <button class="type-tab" onclick="setType('social',this)">Social</button>
+          </div>
+        </div>
+        <div class="textarea-wrap">
+          <textarea id="msgInput" placeholder="Paste your suspicious message here...&#10;&#10;The AI engine will analyze for phishing, scams, malware links, social engineering, impersonation, and 40+ threat indicators." oninput="updateCharCount()"></textarea>
+          <div class="char-count"><span id="charCount">0</span> characters</div>
+        </div>
+        <div class="examples-row">
+          <span class="ex-label">Examples:</span>
+          <span class="ex-chip" onclick="loadExample('phishing')">🎣 Phishing</span>
+          <span class="ex-chip" onclick="loadExample('irs')">🏛️ IRS Scam</span>
+          <span class="ex-chip" onclick="loadExample('prize')">🎁 Prize Bait</span>
+          <span class="ex-chip" onclick="loadExample('banking')">🏦 Bank Fraud</span>
+          <span class="ex-chip" onclick="loadExample('romance')">💔 Romance Scam</span>
+          <span class="ex-chip" onclick="loadExample('job')">💼 Job Scam</span>
+          <span class="ex-chip" onclick="loadExample('safe')">✅ Legit Msg</span>
+        </div>
+        <div class="action-bar">
+          <button class="btn-scan" id="scanBtn" onclick="runScan()">
+            <span>⚡</span> <span id="btnLabel">Analyze Message</span>
+          </button>
+          <button class="btn-clear" onclick="clearAll()">Clear</button>
+        </div>
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="scan-animation">
+          <div class="scan-ring"></div>
+          <div class="scan-ring"></div>
+          <div class="scan-ring"></div>
+          <div class="scan-core">🔍</div>
+        </div>
+        <div class="loading-text" id="loadingText">INITIALIZING SCAN...</div>
+        <div class="loading-stages">
+          <div class="stage" id="st1">◌ Parsing message structure</div>
+          <div class="stage" id="st2">◌ Checking URL reputation</div>
+          <div class="stage" id="st3">◌ Analyzing language patterns</div>
+          <div class="stage" id="st4">◌ Cross-referencing threat database</div>
+          <div class="stage" id="st5">◌ Generating risk report</div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="resultSection">
+
+        <!-- Verdict Hero -->
+        <div class="verdict-hero" id="verdictHero">
+          <div class="vh-top">
+            <div class="vh-left">
+              <div class="threat-dial">
+                <svg class="dial-svg" viewBox="0 0 90 90" width="90" height="90">
+                  <circle class="dial-track" cx="45" cy="45" r="36"/>
+                  <circle class="dial-fill" id="dialFill" cx="45" cy="45" r="36"
+                    stroke-dasharray="226" stroke-dashoffset="226"/>
+                </svg>
+                <div class="dial-center">
+                  <div class="dial-num" id="dialNum">0</div>
+                  <div class="dial-label">RISK</div>
+                </div>
+              </div>
+              <div class="vh-info">
+                <div class="verdict-tag" id="verdictTag">◉ ANALYZING</div>
+                <div class="verdict-title-big" id="verdictTitleBig">—</div>
+                <div class="verdict-subtitle" id="verdictSubtitle">—</div>
+              </div>
+            </div>
+            <div class="vh-right">
+              <div class="threat-type-badge" id="threatTypeBadge">Unknown</div>
+              <div class="confidence-val" id="confidenceVal">—</div>
+            </div>
+          </div>
+          <div class="risk-bars">
+            <div class="rbar">
+              <div class="rbar-val" id="rb1">—</div>
+              <div class="rbar-label">Deception</div>
+            </div>
+            <div class="rbar">
+              <div class="rbar-val" id="rb2">—</div>
+              <div class="rbar-label">Urgency</div>
+            </div>
+            <div class="rbar">
+              <div class="rbar-val" id="rb3">—</div>
+              <div class="rbar-label">Data Risk</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Highlighted Message -->
+        <div class="msg-analysis" style="animation:fadeUp 0.4s 0.1s both">
+          <div class="dc-head">
+            <div class="dc-title">Message Analysis</div>
+            <div class="dc-count" id="threatCountLabel">—</div>
+          </div>
+          <div class="msg-body" id="msgHighlighted"></div>
+          <div class="msg-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>Suspicious URL</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#f87171"></div>Urgency Trigger</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Money / Reward</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#93bbfb"></div>Brand Mention</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#c4b5fd"></div>Contact Info</div>
+          </div>
+        </div>
+
+        <!-- Detail Grid -->
+        <div class="detail-grid" style="animation:fadeUp 0.4s 0.15s both">
+          <!-- Signals -->
+          <div class="detail-card">
+            <div class="dc-head">
+              <div class="dc-title">Threat Signals</div>
+              <div class="dc-count" id="sigCount">0 found</div>
+            </div>
+            <div class="signal-list" id="signalList"></div>
+          </div>
+          <!-- Categories -->
+          <div class="detail-card">
+            <div class="dc-head">
+              <div class="dc-title">Risk Categories</div>
+            </div>
+            <div class="cat-grid" id="catGrid"></div>
+          </div>
+        </div>
+
+        <!-- AI Summary -->
+        <div class="ai-summary" style="animation:fadeUp 0.4s 0.2s both">
+          <div class="ai-badge">✦ AI Analysis</div>
+          <div class="ai-text" id="aiText">—</div>
+        </div>
+
+        <!-- What to do -->
+        <div style="margin-bottom:20px;animation:fadeUp 0.4s 0.25s both">
+          <div class="dc-title" style="margin-bottom:12px">Recommended Actions</div>
+          <div class="actions-row" id="actionsRow"></div>
+        </div>
+
+        <!-- Known Patterns -->
+        <div class="detail-card" style="animation:fadeUp 0.4s 0.3s both">
+          <div class="dc-head">
+            <div class="dc-title">Pattern Match — Known Scam Types</div>
+            <div class="dc-count" id="patternCount">—</div>
+          </div>
+          <div class="similar-list" id="similarList"></div>
+        </div>
+
+      </div><!-- end resultSection -->
+    </div><!-- end left col -->
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="sidebar-card" style="animation:fadeUp 0.5s 0.05s both">
+        <div class="sc-title"><div class="sc-title-dot"></div>Session Stats</div>
+        <div class="quick-stats">
+          <div class="qs-item">
+            <div class="qs-val" id="ss-scanned" style="color:var(--accent)">0</div>
+            <div class="qs-label">Scanned</div>
+          </div>
+          <div class="qs-item">
+            <div class="qs-val" id="ss-scams" style="color:var(--red)">0</div>
+            <div class="qs-label">Scams</div>
+          </div>
+          <div class="qs-item">
+            <div class="qs-val" id="ss-suspicious" style="color:var(--amber)">0</div>
+            <div class="qs-label">Suspicious</div>
+          </div>
+          <div class="qs-item">
+            <div class="qs-val" id="ss-safe" style="color:var(--green)">0</div>
+            <div class="qs-label">Safe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="animation:fadeUp 0.5s 0.1s both">
+        <div class="sc-title"><div class="sc-title-dot"></div>Scan History</div>
+        <div class="history-list" id="historyList">
+          <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--text3);text-align:center;padding:20px 0;">
+            No scans yet
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="animation:fadeUp 0.5s 0.15s both">
+        <div class="sc-title"><div class="sc-title-dot"></div>Detection Coverage</div>
+        <div class="tips-list">
+          <div class="tip-row"><span class="ico">🔗</span><span>Malicious URLs & phishing domains with TLD analysis</span></div>
+          <div class="tip-row"><span class="ico">🎭</span><span>Brand impersonation & spoofed sender identity</span></div>
+          <div class="tip-row"><span class="ico">⚡</span><span>Urgency, fear tactics & social engineering</span></div>
+          <div class="tip-row"><span class="ico">🔐</span><span>Credential harvesting & personal data requests</span></div>
+          <div class="tip-row"><span class="ico">💸</span><span>Financial fraud & advance fee scams</span></div>
+          <div class="tip-row"><span class="ico">📱</span><span>SMS/smishing & OTP bypass attempts</span></div>
+          <div class="tip-row"><span class="ico">🤖</span><span>AI-generated scam content patterns</span></div>
+          <div class="tip-row"><span class="ico">🌐</span><span>Geographic & language inconsistency detection</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="animation:fadeUp 0.5s 0.2s both">
+        <div class="sc-title"><div class="sc-title-dot"></div>Pro Tips</div>
+        <div class="tips-list">
+          <div class="tip-row"><span class="ico">💡</span><span>Never click links — go directly to the official website</span></div>
+          <div class="tip-row"><span class="ico">💡</span><span>Legitimate companies won't ask for OTP or passwords</span></div>
+          <div class="tip-row"><span class="ico">💡</span><span>Forward SMS spam to 7726 (SPAM) with your carrier</span></div>
+          <div class="tip-row"><span class="ico">💡</span><span>Check sender email domain carefully — not just the name</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end main-grid -->
+</div><!-- end app -->
+
+<script>
+// ---- State ----
+let currentType = 'sms';
+let sessionStats = { scanned:0, scams:0, suspicious:0, safe:0 };
+let history = [];
+
+// ---- Examples ----
+const examples = {
+  phishing: `ALERT: Your PayPal account has been limited due to suspicious activity. Verify your information immediately to restore access:
+
+http://paypal-secure-verify.ml/account/restore?id=992847
+
+Failure to verify within 2 hours will result in permanent account suspension. - PayPal Security`,
+
+  irs: `FINAL NOTICE - Internal Revenue Service
+
+This is your final notice before legal action is filed against you. You owe $4,832.00 in unpaid federal taxes. A warrant has been issued for your arrest.
+
+To avoid IMMEDIATE arrest and prosecution, call our tax resolution hotline NOW: 1-888-453-9921
+
+Do NOT ignore this message. This is your LAST CHANCE to settle before officers are dispatched to your address.`,
+
+  prize: `🎉🎉 CONGRATULATIONS!!! 🎉🎉
+
+You've been RANDOMLY SELECTED as our WINNER of the week! Claim your FREE $750 Amazon Gift Card NOW before it expires!!!!
+
+⏰ EXPIRES IN: 23:47:02
+👉 Click to CLAIM: www.amazon-winner-rewards.club/claim?code=WIN750
+
+Share with 5 friends to DOUBLE your reward to $1500!!!
+Reply STOP to unsubscribe`,
+
+  banking: `Wells Fargo: We detected unusual sign-in to your account from India. If this wasn't you, verify your identity immediately:
+
+https://wellsfargo-secure-login.xyz/verify?token=a7b3k9
+
+Your account will be frozen in 30 minutes if not verified. Enter your full debit card number, PIN, and the OTP we'll send to confirm it's you.`,
+
+  romance: `Hey beautiful 💕 I know we haven't met in person yet but my feelings for you are so real. I'm stuck in Dubai on a business deal and my bank is frozen - could you help me with just $500 via Western Union? I promise I'll pay back triple when I return next week. You're the only person I trust 🥺`,
+
+  job: `URGENT HIRING - Work From Home!
+
+We're looking for package handlers to reship products. Earn $2,000-$5,000/week! No experience needed.
+
+Send us your:
+• Full name & home address
+• Date of birth
+• Social Security Number
+• Bank account details (for direct deposit)
+
+Reply to: jobs.remote.hiring@gmail.com
+Offer expires tonight!`,
+
+  safe: `Hi Priya, this is a reminder about your dentist appointment tomorrow at 10:30 AM with Dr. Mehta at Smile Dental Clinic, 2nd floor, Koregaon Park. 
+
+Please arrive 10 minutes early to fill out paperwork. Call us at 020-4567-8901 if you need to reschedule.
+
+— Smile Dental Clinic`
+};
+
+function loadExample(type) {
+  document.getElementById('msgInput').value = examples[type];
+  updateCharCount();
+}
+
+function setType(type, el) {
+  currentType = type;
+  document.querySelectorAll('.type-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function updateCharCount() {
+  document.getElementById('charCount').textContent = document.getElementById('msgInput').value.length;
+}
+
+function clearAll() {
+  document.getElementById('msgInput').value = '';
+  document.getElementById('charCount').textContent = '0';
+  document.getElementById('resultSection').style.display = 'none';
+}
+
+// ---- Analysis Engine ----
+function analyze(text) {
+  const lower = text.toLowerCase();
+  const signals = [];
+  let deception=0, urgencyScore=0, dataRisk=0, financialRisk=0, linkRisk=0, intimidation=0;
+
+  // URLs
+  const urls = text.match(/https?:\/\/[^\s]+|www\.[^\s]+/gi) || [];
+  const badTLD = /\.(xyz|club|tk|ml|ga|cf|gq|top|click|link|life|pw|ru|cn|work|online|site|website|store|shop)(?:[/?#]|$)/i;
+  const suspUrls = urls.filter(u=>badTLD.test(u));
+  const hasShortener = /bit\.ly|tinyurl|goo\.gl|t\.co|ow\.ly|shorturl\.at/i.test(text);
+
+  if(suspUrls.length>0){ linkRisk+=35; signals.push({name:'Malicious Domain',desc:`${suspUrls.length} high-risk TLD(s) detected`,level:'critical',score:35,cat:'link'}); }
+  else if(urls.length>0){ linkRisk+=12; signals.push({name:'External Links',desc:`${urls.length} URL(s) — verify before clicking`,level:'medium',score:12,cat:'link'}); }
+  if(hasShortener){ linkRisk+=20; signals.push({name:'URL Shortener',desc:'Hides true destination URL',level:'high',score:20,cat:'link'}); }
+
+  // Urgency
+  const urgencyTerms = ['urgent','immediately','expire','expired','expires','limited time','act now','within 24','within 2 hours','final notice','last chance','don\'t wait','do not ignore','right now','tonight','asap','now!','before it\'s too late','time sensitive'];
+  const foundUrgency = urgencyTerms.filter(w=>lower.includes(w));
+  if(foundUrgency.length>=3){ urgencyScore+=25; deception+=15; signals.push({name:'Extreme Urgency',desc:`"${foundUrgency.slice(0,2).join('", "')}"...`,level:'critical',score:25,cat:'social'}); }
+  else if(foundUrgency.length>0){ urgencyScore+=12; signals.push({name:'Urgency Language',desc:`"${foundUrgency[0]}"`,level:'medium',score:12,cat:'social'}); }
+
+  // Threats/intimidation
+  const threatTerms = ['arrest','warrant','prosecution','legal action','lawsuit','police','irs','officers dispatched','will be suspended','account frozen','criminal charges','penalties'];
+  const foundThreats = threatTerms.filter(w=>lower.includes(w));
+  if(foundThreats.length>=2){ intimidation+=30; deception+=15; signals.push({name:'Threat & Intimidation',desc:`Legal threats: "${foundThreats.slice(0,2).join('", "')}"`,level:'critical',score:30,cat:'social'}); }
+  else if(foundThreats.length===1){ intimidation+=15; signals.push({name:'Fear Tactic',desc:`Contains: "${foundThreats[0]}"`,level:'high',score:15,cat:'social'}); }
+
+  // Credentials/data harvest
+  const dataTerms = ['verify your','confirm your','update your','social security','ssn','date of birth','bank account','full name','home address','enter your','otp','pin','password','credit card','debit card','card number'];
+  const foundData = dataTerms.filter(w=>lower.includes(w));
+  if(foundData.length>=2){ dataRisk+=35; signals.push({name:'Credential Harvesting',desc:`Requests: ${foundData.slice(0,3).join(', ')}`,level:'critical',score:35,cat:'data'}); }
+  else if(foundData.length===1){ dataRisk+=15; signals.push({name:'Personal Data Request',desc:`Asks for: "${foundData[0]}"`,level:'high',score:15,cat:'data'}); }
+
+  // Financial
+  const finTerms = ['western union','wire transfer','gift card','google play card','itunes card','bitcoin','crypto','owe','back taxes','pay now','send money','advance fee','wire us'];
+  const foundFin = finTerms.filter(w=>lower.includes(w));
+  if(foundFin.length>0){ financialRisk+=25; signals.push({name:'Financial Fraud Pattern',desc:`"${foundFin.slice(0,2).join('", "')}"`,level:'critical',score:25,cat:'financial'}); }
+
+  // Prizes/rewards
+  const prizeTerms = ['you\'ve won','you have won','you\'ve been selected','congratulations','lucky winner','claim your','free gift','gift card','reward','prize','selected as our'];
+  const foundPrize = prizeTerms.filter(w=>lower.includes(w));
+  if(foundPrize.length>=2){ deception+=20; signals.push({name:'Prize Bait',desc:`Classic reward hook: "${foundPrize[0]}"`,level:'high',score:20,cat:'social'}); }
+
+  // Brand impersonation
+  const brands = ['paypal','amazon','apple','microsoft','google','facebook','instagram','netflix','walmart','fedex','ups','irs','wells fargo','chase','bank of america','citibank'];
+  const foundBrands = brands.filter(b=>lower.includes(b));
+  if(foundBrands.length){ deception+=15; signals.push({name:'Brand Impersonation',desc:`Mimics: ${foundBrands.join(', ')}`,level:'high',score:15,cat:'identity'}); }
+
+  // Excessive punctuation
+  const exclCount = (text.match(/!/g)||[]).length;
+  const capsWords = (text.match(/\b[A-Z]{3,}\b/g)||[]).length;
+  if(exclCount>=4||capsWords>=5){ deception+=10; signals.push({name:'Aggressive Formatting',desc:`${exclCount} !, ${capsWords} ALL-CAPS words`,level:'medium',score:10,cat:'social'}); }
+
+  // Phone numbers with fake authority
+  const phone = text.match(/\b1?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g);
+  if(phone&&(foundThreats.length>0||foundData.length>0)){ dataRisk+=10; signals.push({name:'Suspicious Contact Number',desc:`Number: ${phone[0]}`,level:'medium',score:10,cat:'identity'}); }
+
+  // Romance scam
+  const romanceTerms = ['my feelings for you','western union','my bank is frozen','pay back triple','i trust you','business deal','stuck in','can\'t access'];
+  const foundRomance = romanceTerms.filter(w=>lower.includes(w));
+  if(foundRomance.length>=2){ deception+=25; financialRisk+=20; signals.push({name:'Romance Scam Pattern',desc:'Emotional manipulation + financial ask',level:'critical',score:30,cat:'social'}); }
+
+  // Job scam
+  if(lower.includes('social security')&&(lower.includes('job')||lower.includes('work from home')||lower.includes('hiring'))){ dataRisk+=30; signals.push({name:'Job Scam — Identity Theft',desc:'Fake job collects SSN & bank info',level:'critical',score:30,cat:'data'}); }
+
+  // Reshipping/mule
+  if(lower.includes('reship')||lower.includes('package handler')){ financialRisk+=20; signals.push({name:'Reshipping Mule Scam',desc:'Fake job used for money laundering',level:'critical',score:25,cat:'financial'}); }
+
+  // Forwarding bait
+  if(lower.includes('share with')&&(lower.includes('friend')||lower.includes('contact'))){ deception+=8; signals.push({name:'Viral Chain Bait',desc:'Asks to forward to others',level:'low',score:8,cat:'social'}); }
+
+  // Sender consistency (gmail for a bank etc.)
+  if((lower.includes('bank')||lower.includes('paypal')||lower.includes('amazon'))&&lower.includes('@gmail.com')){ deception+=20; signals.push({name:'Spoofed Sender Domain',desc:'Official brand using free email service',level:'critical',score:20,cat:'identity'}); }
+
+  // Good signals
+  let goodSignals = 0;
+  if(urls.length===0){ goodSignals++; signals.push({name:'No External Links',desc:'Message contains no URLs',level:'good',score:0,cat:'link'}); }
+  if(foundData.length===0&&foundThreats.length===0&&foundUrgency.length===0){ goodSignals+=2; }
+
+  // Compute total score
+  const rawTotal = deception + urgencyScore + dataRisk + financialRisk + linkRisk + intimidation;
+  const totalScore = Math.min(100, Math.max(0, rawTotal - (goodSignals*5)));
+
+  // Category scores
+  const cats = [
+    { name:'Deception', score:Math.min(100,deception+intimidation), color:'#ef4444' },
+    { name:'Link Safety', score:Math.min(100,linkRisk), color:'#f59e0b' },
+    { name:'Data Risk', score:Math.min(100,dataRisk), color:'#8b5cf6' },
+    { name:'Financial', score:Math.min(100,financialRisk), color:'#ec4899' },
+    { name:'Social Eng.', score:Math.min(100,urgencyScore+Math.min(40,deception)), color:'#f97316' },
+    { name:'Identity', score:foundBrands.length?Math.min(100,foundBrands.length*20+15):0, color:'#06b6d4' },
+  ];
+
+  // Verdict
+  let verdict, color, bg, threatType;
+  if(totalScore>=60){
+    verdict='SCAM DETECTED'; color='#ef4444'; bg='rgba(239,68,68,0.08)';
+    if(foundRomance.length>=2) threatType='Romance Scam';
+    else if(foundFin.length>0) threatType='Financial Fraud';
+    else if(foundData.length>=2&&urls.length>0) threatType='Phishing Attack';
+    else if(foundThreats.some(t=>['irs','arrest'].includes(t))) threatType='Government Impersonation';
+    else if(lower.includes('job')||lower.includes('hiring')) threatType='Employment Scam';
+    else threatType='Social Engineering';
+  } else if(totalScore>=28){
+    verdict='SUSPICIOUS'; color='#f59e0b'; bg='rgba(245,158,11,0.08)';
+    threatType = suspUrls.length>0 ? 'Potential Phishing' : 'Spam / Suspicious';
+  } else {
+    verdict='LIKELY SAFE'; color='#10d88a'; bg='rgba(16,216,138,0.06)';
+    threatType = 'No Threats Detected';
+  }
+
+  // Deception/urgency/data ratings
+  const ratingLabel = v => v>=70?'CRITICAL':v>=45?'HIGH':v>=20?'MEDIUM':'LOW';
+
+  // Pattern matching
+  const patterns = [];
+  if(foundRomance.length>=2) patterns.push({type:'Romance Scam',match:92});
+  if(foundFin.filter(f=>['western union','wire transfer','gift card','bitcoin'].includes(f)).length) patterns.push({type:'Advance Fee Fraud (419)',match:88});
+  if(suspUrls.length>0&&foundData.length>0) patterns.push({type:'Credential Phishing',match:94});
+  if(lower.includes('irs')||lower.includes('warrant')||lower.includes('arrest')) patterns.push({type:'IRS/Government Impersonation',match:96});
+  if(foundPrize.length>=2) patterns.push({type:'Prize/Lottery Scam',match:85});
+  if(lower.includes('work from home')&&foundData.length>0) patterns.push({type:'Job/Reshipping Scam',match:87});
+  if(hasShortener) patterns.push({type:'Malware Distribution',match:72});
+  if(patterns.length===0&&totalScore>=28) patterns.push({type:'Generic Spam',match:60});
+  if(patterns.length===0&&totalScore<28) patterns.push({type:'Legitimate Message',match:91});
+
+  // AI summary
+  let aiText = '';
+  if(totalScore>=60){
+    aiText = `This message is a <strong>high-confidence scam</strong> with a risk score of <strong>${totalScore}/100</strong>. `;
+    if(foundBrands.length) aiText += `It impersonates <strong>${foundBrands.slice(0,2).join(', ')}</strong> to appear legitimate. `;
+    if(suspUrls.length) aiText += `The embedded link(s) use <strong>suspicious domains</strong> typically associated with phishing infrastructure. `;
+    if(foundData.length>=2) aiText += `It attempts to harvest sensitive personal data. `;
+    if(foundThreats.length) aiText += `Fear-based pressure tactics (arrest threats, account suspension) are a hallmark of social engineering. `;
+    aiText += `<strong>Do not respond, click links, or share any personal information.</strong>`;
+  } else if(totalScore>=28){
+    aiText = `This message shows <strong>some suspicious characteristics</strong> (risk: ${totalScore}/100) but isn't definitively malicious. `;
+    if(urls.length) aiText += `Verify any links by going directly to the official website rather than clicking. `;
+    aiText += `Exercise caution and confirm through official channels before taking any action.`;
+  } else {
+    aiText = `This message appears <strong>legitimate</strong> with a low risk score of <strong>${totalScore}/100</strong>. `;
+    aiText += `No significant threat indicators were detected. Standard communication practices appear to be followed.`;
+  }
+
+  // Actions
+  let actions = [];
+  if(totalScore>=60){
+    actions = [
+      {icon:'🚫',title:'Block Sender',desc:'Immediately block this number or email',cls:'recommended'},
+      {icon:'📋',title:'Report Scam',desc:'Report to FTC, IC3, or carrier (7726)',cls:'recommended'},
+      {icon:'🔗',title:'Never Click Links',desc:'All links should be considered hostile',cls:'dangerous'},
+    ];
+  } else if(totalScore>=28){
+    actions = [
+      {icon:'🔍',title:'Verify Source',desc:'Contact the company through official website',cls:'recommended'},
+      {icon:'⏸️',title:'Do Not Rush',desc:'Urgency is a manipulation tactic',cls:''},
+      {icon:'💬',title:'Ask Someone',desc:'Share with a trusted person for second opinion',cls:''},
+    ];
+  } else {
+    actions = [
+      {icon:'✅',title:'Looks Safe',desc:'No major red flags detected',cls:''},
+      {icon:'🔒',title:'Stay Alert',desc:'Always verify unexpected requests',cls:''},
+      {icon:'📚',title:'Stay Informed',desc:'Learn common scam patterns',cls:''},
+    ];
+  }
+
+  return {
+    score: totalScore, verdict, color, bg, threatType, signals,
+    cats, patterns, aiText, actions,
+    dims: {
+      deception: Math.min(100, deception+intimidation),
+      urgency: Math.min(100, urgencyScore + (foundThreats.length*10)),
+      dataRisk: Math.min(100, dataRisk)
+    },
+    confidence: totalScore >= 60 ? '94.7% confidence' : totalScore >= 28 ? '78.3% confidence' : '91.2% confidence',
+    urls, phone
+  };
+}
+
+// ---- Highlight Message (Bug 2 fixed: safe URL tokenisation) ----
+function highlightMsg(text, analysis) {
+  const urls = text.match(/https?:\/\/[^\s]+|www\.[^\s]+/gi)||[];
+  const placeholders = {};
+
+  // Step 1: swap raw URLs for safe tokens BEFORE html-escaping
+  // so that & ? = chars in URLs never corrupt the markup
+  let tokenized = text;
+  urls.forEach((url, i) => {
+    const token = '\x01URL' + i + '\x01';
+    placeholders[token] = url;
+    tokenized = tokenized.split(url).join(token);
+  });
+
+  // Step 2: html-escape the now-URL-free text
+  let out = tokenized
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+
+  // Step 3: restore each URL as a highlighted span with its own safe-escaped display text
+  Object.entries(placeholders).forEach(([token, url]) => {
+    const safe = url.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    out = out.split(token).join('<span class="hl-url">' + safe + '</span>');
+  });
+
+  // Step 4: apply remaining highlight patterns
+  const urgentRx = /\b(urgent|immediately|expires?|limited time|act now|final notice|last chance|24 hours|arrest(?:ed)?|suspend(?:ed)?|frozen|ASAP|NOW|tonight|prosecut(?:ion|ed))\b/gi;
+  const moneyRx = /(\$[\d,]+(?:\.\d+)?|£[\d,]+|\bbitcoin\b|\bcrypto\b|\bgift card\b|\bwestern union\b|\bwire transfer\b)/gi;
+  const brandRx = /\b(paypal|amazon|apple|microsoft|google|facebook|instagram|netflix|walmart|fedex|ups|irs|wells fargo|chase|bank of america)\b/gi;
+  const phoneRx = /\b1?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g;
+
+  out = out.replace(urgentRx, m=>'<span class="hl-urgent">' + m + '</span>');
+  out = out.replace(moneyRx,  m=>'<span class="hl-money">'  + m + '</span>');
+  out = out.replace(brandRx,  m=>'<span class="hl-brand">'  + m + '</span>');
+  out = out.replace(phoneRx,  m=>'<span class="hl-phone">'  + m + '</span>');
+  return out;
+}
+
+// ---- Render ----
+function renderResult(text, analysis) {
+  const r = document.getElementById('resultSection');
+  r.style.display = 'block';
+
+  // Hero
+  const hero = document.getElementById('verdictHero');
+  hero.style.background = analysis.bg;
+  hero.style.borderColor = analysis.color + '30';
+  hero.style.color = analysis.color;
+
+  // Dial
+  const circumference = 226;
+  const offset = circumference - (analysis.score/100)*circumference;
+  const dial = document.getElementById('dialFill');
+  dial.style.stroke = analysis.color;
+  dial.style.strokeDashoffset = circumference;
+  setTimeout(()=>{ dial.style.strokeDashoffset = offset; }, 200);
+  document.getElementById('dialNum').textContent = analysis.score;
+  document.getElementById('dialNum').style.color = analysis.color;
+
+  // Verdict
+  const vtag = document.getElementById('verdictTag');
+  vtag.textContent = `◉ ${analysis.verdict}`;
+  vtag.style.color = analysis.color;
+  vtag.style.borderColor = analysis.color + '40';
+  vtag.style.background = analysis.color + '15';
+
+  document.getElementById('verdictTitleBig').textContent =
+    analysis.score>=60 ? 'Threat Confirmed' : analysis.score>=28 ? 'Proceed with Caution' : 'Message Appears Safe';
+  document.getElementById('verdictSubtitle').textContent =
+    analysis.score>=60 ? 'This message matches known scam and phishing patterns. Do not engage.' :
+    analysis.score>=28 ? 'Some suspicious patterns found. Verify before responding.' :
+    'No major threats detected. This looks like a normal message.';
+
+  document.getElementById('threatTypeBadge').textContent = analysis.threatType;
+  document.getElementById('confidenceVal').textContent = analysis.confidence;
+
+  const dims = analysis.dims;
+  document.getElementById('rb1').textContent = dims.deception >= 70 ? '🔴 CRITICAL' : dims.deception >= 40 ? '🟡 HIGH' : dims.deception >= 15 ? '🟠 MEDIUM' : '🟢 LOW';
+  document.getElementById('rb2').textContent = dims.urgency >= 70 ? '🔴 CRITICAL' : dims.urgency >= 40 ? '🟡 HIGH' : dims.urgency >= 15 ? '🟠 MEDIUM' : '🟢 LOW';
+  document.getElementById('rb3').textContent = dims.dataRisk >= 70 ? '🔴 CRITICAL' : dims.dataRisk >= 40 ? '🟡 HIGH' : dims.dataRisk >= 15 ? '🟠 MEDIUM' : '🟢 LOW';
+
+  // Highlighted message
+  document.getElementById('msgHighlighted').innerHTML = highlightMsg(text, analysis);
+  const flagCount = (text.match(/hl-/g)||[]).length;
+  const sigs = analysis.signals.filter(s=>s.level!=='good');
+  document.getElementById('threatCountLabel').textContent = `${sigs.length} threat signal${sigs.length!==1?'s':''}`;
+
+  // Signals
+  const sl = document.getElementById('signalList');
+  sl.innerHTML = '';
+  const levelColor = {critical:'#ef4444',high:'#f59e0b',medium:'#3b82f6',low:'#6b7280',good:'#10d88a'};
+  const nonGood = analysis.signals.filter(s=>s.level!=='good');
+  const goodSigs = analysis.signals.filter(s=>s.level==='good');
+  const allSigs = [...nonGood, ...goodSigs];
+  document.getElementById('sigCount').textContent = `${nonGood.length} found`;
+  allSigs.forEach((sig,i)=>{
+    const el = document.createElement('div');
+    el.className = 'signal-item';
+    el.style.animationDelay = `${i*0.06}s`;
+    el.style.borderColor = (levelColor[sig.level]||'#6b7280') + '30';
+    el.innerHTML = `
+      <div class="sig-bar-wrap">
+        <div class="sig-name" style="color:${levelColor[sig.level]}">${sig.name}</div>
+        <div class="sig-desc">${sig.desc}</div>
+        <div class="sig-bar" style="background:${(levelColor[sig.level]||'#6b7280')}20">
+          <div class="sig-bar-fill" style="background:${levelColor[sig.level]};width:0" data-w="${sig.score}"></div>
+        </div>
+      </div>
+      <div class="sig-level" style="color:${levelColor[sig.level]}">${sig.level.toUpperCase()}</div>`;
+    sl.appendChild(el);
+  });
+  setTimeout(()=>{
+    document.querySelectorAll('.sig-bar-fill').forEach(b=>{
+      b.style.width = Math.min(100,parseInt(b.dataset.w)*2.5)+'%';
+    });
+  }, 300);
+
+  // Categories
+  const cg = document.getElementById('catGrid');
+  cg.innerHTML = '';
+  analysis.cats.forEach(cat=>{
+    const el = document.createElement('div');
+    el.className = 'cat-item';
+    el.innerHTML = `
+      <div class="cat-top">
+        <div class="cat-name">${cat.name}</div>
+        <div class="cat-score" style="color:${cat.color}">${cat.score}</div>
+      </div>
+      <div class="cat-progress">
+        <div class="cat-bar" style="background:${cat.color}" data-w="${cat.score}"></div>
+      </div>`;
+    cg.appendChild(el);
+  });
+  setTimeout(()=>{
+    document.querySelectorAll('.cat-bar').forEach(b=>{
+      b.style.width = b.dataset.w+'%';
+    });
+  }, 400);
+
+  // AI text
+  document.getElementById('aiText').innerHTML = analysis.aiText;
+
+  // Actions
+  const ar = document.getElementById('actionsRow');
+  ar.innerHTML = '';
+  analysis.actions.forEach(a=>{
+    const el = document.createElement('div');
+    el.className = `action-card ${a.cls}`;
+    el.innerHTML = `<div class="action-icon">${a.icon}</div><div class="action-title">${a.title}</div><div class="action-desc">${a.desc}</div>`;
+    ar.appendChild(el);
+  });
+
+  // Patterns
+  const pl = document.getElementById('similarList');
+  pl.innerHTML = '';
+  document.getElementById('patternCount').textContent = `${analysis.patterns.length} match${analysis.patterns.length!==1?'es':''}`;
+  analysis.patterns.forEach(p=>{
+    const c = p.match>=80 ? '#ef4444' : p.match>=60 ? '#f59e0b' : '#10d88a';
+    const el = document.createElement('div');
+    el.className = 'similar-item';
+    el.innerHTML = `
+      <div style="width:8px;height:8px;border-radius:50%;background:${c};flex-shrink:0"></div>
+      <div class="sim-type">${p.type}</div>
+      <div class="sim-match" style="color:${c}">${p.match}% match</div>`;
+    pl.appendChild(el);
+  });
+
+  // Session stats
+  sessionStats.scanned++;
+  if(analysis.score>=60) sessionStats.scams++;
+  else if(analysis.score>=28) sessionStats.suspicious++;
+  else sessionStats.safe++;
+
+  document.getElementById('ss-scanned').textContent = sessionStats.scanned;
+  document.getElementById('ss-scams').textContent = sessionStats.scams;
+  document.getElementById('ss-suspicious').textContent = sessionStats.suspicious;
+  document.getElementById('ss-safe').textContent = sessionStats.safe;
+  document.getElementById('totalScanned').textContent = sessionStats.scanned;
+  document.getElementById('threatsFound').textContent = sessionStats.scams;
+
+  // History
+  const snippet = text.slice(0,50)+(text.length>50?'…':'');
+  const hc = analysis.score>=60?'#ef4444':analysis.score>=28?'#f59e0b':'#10d88a';
+  const histEl = document.createElement('div');
+  histEl.className = 'history-item';
+  histEl.innerHTML = `<div class="hi-dot" style="background:${hc}"></div><div class="hi-text">${snippet}</div><div class="hi-score" style="color:${hc}">${analysis.score}</div>`;
+  const hl = document.getElementById('historyList');
+  // Bug 3 fixed: only remove the placeholder "No scans yet" text, not real history items
+  const placeholder = hl.querySelector('div[style*="text-align"]');
+  if(placeholder) placeholder.remove();
+  hl.prepend(histEl);
+
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ---- Scan ----
+async function runScan() {
+  const text = document.getElementById('msgInput').value.trim();
+  if(!text){ document.getElementById('msgInput').focus(); return; }
+
+  document.getElementById('scanBtn').disabled = true;
+  document.getElementById('btnLabel').textContent = 'Scanning...';
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('loadingOverlay').style.display = 'block';
+
+  const stages = ['st1','st2','st3','st4','st5'];
+  stages.forEach(s=>{ document.getElementById(s).className='stage'; document.getElementById(s).textContent = '◌ '+document.getElementById(s).textContent.slice(2); });
+
+  const stageTexts = [
+    'Parsing message structure',
+    'Checking URL reputation',
+    'Analyzing language patterns',
+    'Cross-referencing threat database',
+    'Generating risk report'
+  ];
+
+  for(let i=0;i<stages.length;i++){
+    await delay(280);
+    document.getElementById(stages[i]).className='stage active';
+    document.getElementById(stages[i]).textContent = '⟳ '+stageTexts[i];
+    if(i>0){
+      document.getElementById(stages[i-1]).className='stage done';
+      document.getElementById(stages[i-1]).textContent = '✓ '+stageTexts[i-1];
+    }
+  }
+
+  await delay(350);
+  document.getElementById(stages[stages.length-1]).className='stage done';
+  document.getElementById(stages[stages.length-1]).textContent = '✓ '+stageTexts[stages.length-1];
+
+  await delay(200);
+
+  const analysis = analyze(text);
+
+  document.getElementById('loadingOverlay').style.display = 'none';
+  document.getElementById('scanBtn').disabled = false;
+  document.getElementById('btnLabel').textContent = 'Analyze Message';
+
+  // Reset stages for next time
+  stages.forEach((s,i)=>{ document.getElementById(s).className='stage'; document.getElementById(s).textContent = '◌ '+stageTexts[i]; });
+
+  renderResult(text, analysis);
+}
+
+function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
+</script>
+</body>
+</html>
+  
